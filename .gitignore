@@ -1,0 +1,30 @@
+# Infra access notes — keep out of version control
+SFM-WEBSERVER-ACCESS.md
+
+# MQTT broker + topic — keep private so no one can publish fake data.
+# Copy *_config.example.py → mqtt_config.py and fill in your own values.
+mqtt_config.py
+field-pi/mqtt_config.py
+server-weather-page/mqtt_config.py
+
+# Real systemd unit files pulled from a live deployment can leak a server
+# username/home-directory path — keep local, don't publish. Example unit
+# files with placeholders live in DEPLOYMENT.md instead.
+server-weather-page/weather-receiver.service
+
+# Weather receiver runtime artifacts (generated on the server, not source)
+server-weather-page/*.db
+server-weather-page/weather-history.html
+server-weather-page/weather.html
+server-weather-page/weather-widget.html
+
+# Claude Code local machine settings
+.claude/settings.local.json
+
+# OS / tooling junk
+__pycache__/
+*.pyc
+*.stackdump
+.DS_Store
+Thumbs.db
+desktop.ini
