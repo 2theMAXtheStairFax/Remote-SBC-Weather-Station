@@ -15,7 +15,7 @@ HTML_PATH = "/var/www/html/index.html"
 # Local copy of the latest reading -- no internet/MQTT dependency, read directly
 # by on-Pi consumers such as mesh_bot.py (some mesh-network bot guidelines
 # ask bots to avoid internet dependencies when a local path is available).
-LATEST_READING_PATH = "/home/<USER>/weather-station/weather_latest.json"
+LATEST_READING_PATH = "/home/<USER>/weather-station/weather_latest.json"  # REQUIRED: replace <USER> with your Linux username
 SENSOR_UPDATE_INTERVAL = 1.0   # seconds - read sensors frequently
 HTML_UPDATE_INTERVAL = 10.0    # seconds
 DISPLAY_UPDATE_INTERVAL = 0.5  # seconds (for display refresh)
@@ -605,7 +605,7 @@ def main():
 
                     last_sensor_update = current_time
 
-                # Update HTML periodicalinaly
+                # Update HTML periodically
                 if current_time - last_html_update >= HTML_UPDATE_INTERVAL:
                     write_html(sensor, battery_data, HTML_PATH)
                     last_html_update = current_time

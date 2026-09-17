@@ -51,7 +51,7 @@ MESHCORE_SERIAL_PORT = "/dev/serial/by-id/your-heltec-device-here"
 
 # Local reading file written by weather_station.py (build_reading()/write_latest_reading())
 # Adjust this path to match wherever weather_station.py runs on your Pi.
-LATEST_READING_PATH = "/home/<USER>/weather-station/weather_latest.json"
+LATEST_READING_PATH = "/home/<USER>/weather-station/weather_latest.json"  # REQUIRED: replace <USER> with your Linux username
 POLL_INTERVAL_SEC = 5  # how often to re-read the local file for freshness
 
 # Trigger words that request a weather reply over DM (case-insensitive, matched
