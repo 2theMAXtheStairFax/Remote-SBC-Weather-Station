@@ -1,0 +1,5 @@
+# Web server (receiver) dependencies
+# Install with: pip3 install -r requirements.txt
+# All other dependencies (sqlite3, json, math, etc.) are Python stdlib.
+
+paho-mqtt
