@@ -44,6 +44,7 @@ mistaken for an outage.
 | Path | What it is |
 |---|---|
 | `field-pi/weather_station.py` | Field-side script. Reads sensors, drives the LCD, publishes MQTT, and writes a local JSON file for on-device consumers like the mesh bot. |
+| `field-pi/night_mode.py` | Sunrise/sunset scheduler. Stops the weather service at sunset and restarts it at sunrise to conserve battery overnight. Run via cron or as a daemon. |
 | `field-pi/mesh_bot.py` | Optional MeshCore query-response bot. Answers "wx"/"weather" DMs and a configurable command word on a configurable channel with a one-line weather summary. Reads the local JSON file — no internet dependency. |
 | `server-weather-page/weather_receiver.py` | MQTT→HTML receiver. Runs as a systemd service on your web server. |
 | `server-weather-page/deploy-receiver.sh` | Deploy script: installs the receiver on the web server, restarts the service. |
@@ -68,8 +69,9 @@ mistaken for an outage.
 - Rain gauge tip-counting relies entirely on the `weatherhat` library's
   interrupt-driven counters — verify your gauge's reed switch/magnet
   alignment during bench testing before trusting rain readings.
-- Clean shutdown on low battery and startup sequencing are not implemented —
-  worth adding for an unattended off-grid deployment.
+- Low-battery clean shutdown is not yet implemented — worth adding for an
+  unattended off-grid deployment (read battery SOC from EPEVER; call
+  `sudo shutdown -h now` below a safe threshold).
 
 ## Deployment
 

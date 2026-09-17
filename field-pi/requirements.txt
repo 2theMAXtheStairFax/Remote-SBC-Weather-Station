@@ -14,3 +14,6 @@ pyserial
 
 # Optional: MeshCore query-response bot (mesh_bot.py)
 meshcore
+
+# Optional: sunrise/sunset scheduling (night_mode.py)
+astral
