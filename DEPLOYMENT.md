@@ -28,21 +28,14 @@ Both scripts exit with a clear error message if `mqtt_config.py` is missing.
 
 ```bash
 sudo apt update
-sudo apt install -y python3-pip python3-smbus i2c-tools python3-rpi.gpio
-pip3 install pillow st7789 smbus2 weatherhat paho-mqtt
+sudo apt install -y python3-pip python3-smbus i2c-tools python3-rpi.gpio fonts-dejavu-core
+pip3 install -r field-pi/requirements.txt
+# Debian 13+ (PEP 668): pip3 install --break-system-packages -r field-pi/requirements.txt
 ```
 
-If using the optional EPEVER/Modbus charge-controller integration:
-```bash
-pip3 install minimalmodbus pyserial
-```
+`field-pi/requirements.txt` includes the optional EPEVER/Modbus and MeshCore packages — skip those lines if you're not using those components.
 
 Enable I2C and SPI via `sudo raspi-config` → Interface Options (required for the BME280/LTR559 sensors and the ST7789 display).
-
-The display requires the DejaVu font (usually preinstalled on Raspberry Pi OS):
-```bash
-sudo apt install -y fonts-dejavu-core
-```
 
 ## Configuration to fill in before running
 
@@ -99,8 +92,8 @@ server. It subscribes to the MQTT topic and renders three HTML pages to
 
 **Dependencies:**
 ```bash
-pip3 install paho-mqtt          # sqlite3 is stdlib
-mkdir -p ~/weather-data         # storage for the SQLite history ring buffer
+pip3 install -r server-weather-page/requirements.txt   # sqlite3 is stdlib
+mkdir -p ~/weather-data                                 # storage for the SQLite history ring buffer
 ```
 
 **Deploy:**
@@ -138,10 +131,10 @@ ls /dev/serial/by-id/
 ```
 Set that path as `MESHCORE_SERIAL_PORT` at the top of `mesh_bot.py`. Confirm your channel's index with `get_channel()` before setting `BOT_CHANNEL_IDX` — indices and names are per-node.
 
-**Install dependency:**
+**Install dependency:** included in `field-pi/requirements.txt` — if you installed that already, no separate step is needed.
 ```bash
-pip3 install meshcore
-# Debian 13+ (PEP 668): pip3 install --break-system-packages meshcore
+# Debian 13+ (PEP 668) standalone install if needed:
+pip3 install --break-system-packages meshcore
 ```
 
 **Example service file:**
