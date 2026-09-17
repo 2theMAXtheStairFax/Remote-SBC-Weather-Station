@@ -1,0 +1,16 @@
+# Field SBC (Raspberry Pi) dependencies
+# Install with: pip3 install -r requirements.txt
+# Also requires system packages: sudo apt install -y python3-smbus i2c-tools python3-rpi.gpio fonts-dejavu-core
+
+weatherhat
+st7789
+pillow
+smbus2
+paho-mqtt
+
+# Optional: EPEVER/Modbus charge-controller integration
+minimalmodbus
+pyserial
+
+# Optional: MeshCore query-response bot (mesh_bot.py)
+meshcore
