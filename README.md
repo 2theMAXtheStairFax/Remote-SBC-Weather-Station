@@ -45,6 +45,9 @@ mistaken for an outage.
 |---|---|
 | `field-pi/weather_station.py` | Field-side script. Reads sensors, drives the LCD, publishes MQTT, and writes a local JSON file for on-device consumers like the mesh bot. |
 | `field-pi/night_mode.py` | Sunrise/sunset scheduler. Stops the weather service at sunset and restarts it at sunrise to conserve battery overnight. Run via cron or as a daemon. |
+| `field-pi/pi_power_monitor.py` | Systemd service that watches a GPIO pin for an ESP32 shutdown request and initiates a clean OS shutdown before the relay cuts power. |
+| `field-pi/pi_power_monitor.service` | Systemd unit file for the above. |
+| `esp32/power_manager.py` | MicroPython sketch for an ESP32 that controls a relay on the Pi's 5V supply, sends a graceful-shutdown signal before cutting power, and checks battery voltage before morning power-on. Prevents the SD card corruption that causes boot failures. |
 | `field-pi/mesh_bot.py` | Optional MeshCore query-response bot. Answers "wx"/"weather" DMs and a configurable command word on a configurable channel with a one-line weather summary. Reads the local JSON file — no internet dependency. |
 | `server-weather-page/weather_receiver.py` | MQTT→HTML receiver. Runs as a systemd service on your web server. |
 | `server-weather-page/deploy-receiver.sh` | Deploy script: installs the receiver on the web server, restarts the service. |

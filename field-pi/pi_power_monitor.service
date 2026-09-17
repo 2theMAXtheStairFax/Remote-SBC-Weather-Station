@@ -1,0 +1,28 @@
+# /etc/systemd/system/pi_power_monitor.service
+#
+# Watches for a shutdown request from the ESP32 power manager and
+# initiates a clean OS shutdown before the relay cuts the Pi's 5V supply.
+#
+# Install:
+#   sudo cp pi_power_monitor.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now pi_power_monitor
+
+[Unit]
+Description=ESP32 Power Manager — Pi-side shutdown listener
+# Start early, before the weather station, so the shutdown path is always active
+After=network.target
+Before=weather_station.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/<USER>/weather-station
+ExecStart=/usr/bin/python3 /home/<USER>/weather-station/pi_power_monitor.py
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
