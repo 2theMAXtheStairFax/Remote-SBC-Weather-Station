@@ -44,6 +44,7 @@ end-to-end against real hardware.
 import asyncio
 import time
 import json
+import datetime
 from meshcore import MeshCore, EventType
 
 # MeshCore node serial port -- find your device with: ls /dev/serial/by-id/
@@ -109,10 +110,13 @@ def format_reading_summary(label):
         return f"{label}: station offline (no data {mins}min)."
 
     r = latest_reading
+    ts = r.get('timestamp', 0)
+    time_tag = f" @{datetime.datetime.fromtimestamp(ts).strftime('%H:%M')}" if ts else ""
     return (
         f"{label}: {r.get('temp_f', 0):.0f}F {r.get('humidity', 0):.0f}%RH "
         f"Wind {r.get('wind_speed_mph', 0):.0f}mph {r.get('wind_direction', '?')} "
         f"Rain {r.get('rain_total_in', 0):.2f}in Batt {r.get('battery_voltage', 0):.1f}V"
+        f"{time_tag}"
     )
 
 
